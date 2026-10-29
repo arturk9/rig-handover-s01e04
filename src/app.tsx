@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { loadConfig, type RigConfig } from './config.js';
+import { createDigestApi } from './digest/api.js';
 import { readNight } from './digest/read.js';
 import type { NightDigest } from './digest/types.js';
 import { lane } from './lane.js';
@@ -12,6 +13,8 @@ export function createApp(config: RigConfig = loadConfig()) {
   const app = new Hono();
 
   app.get('/health', (c) => c.json({ ok: true, lane: lane().id }));
+
+  app.route('/', createDigestApi(config));
 
   app.get('/', (c) =>
     c.html(
