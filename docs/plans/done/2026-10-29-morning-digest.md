@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-29
 ---
 
 # Morning digest
@@ -77,3 +78,18 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Define the digest row contract | — | harness · github-copilot/gpt-6-luna · medium | 2026-10-29 |
+| 2 | Read and summarize a night's run log | #1 | harness · general subagent · medium | 2026-10-29 |
+| 3 | Render the digest page | #1, #2 | harness · general subagent · medium | 2026-10-29 |
+| 4 | Return digest rows as JSON | #1, #2 | harness · general subagent · medium | 2026-10-29 |
+| 5 | Link nights to digests on the status board | #1, #2, #3 | harness · general subagent · medium | 2026-10-29 |
+| 6 | Test digest routes | #2, #3, #4 | harness · general subagent · medium | 2026-10-29 |
+| 7 | Publish the digest preview | #3, #4, #5, #6 | harness · github-copilot/gpt-6-luna · medium | 2026-10-29 |
+| 8 | Remove the preview marker and finish the plan | #7 | harness · github-copilot/gpt-6-luna · medium | 2026-10-29 |
+
+Preview: https://arturk9.github.io/rig-handover-s01e04/
