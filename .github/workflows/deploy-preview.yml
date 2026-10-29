@@ -23,15 +23,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install pnpm
-        run: corepack prepare pnpm@10.18.3 --activate
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: corepack pnpm@10.18.3 install --frozen-lockfile
       - name: Render digest page
         env:
           LANE_MARKER: ${{ inputs.marker }}
         run: |
-          pnpm start > /tmp/rig.log 2>&1 &
+          corepack pnpm@10.18.3 start > /tmp/rig.log 2>&1 &
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://localhost:8787/health >/dev/null; then
               break
