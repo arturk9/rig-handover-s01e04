@@ -51,21 +51,18 @@ describe('digest routes', () => {
     const response = await makeApp(runsDir).request('/api/digest/2026-10-29');
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({
-      rows: [
-        {
-          job: 'worker',
-          owner: 'rook',
-          runs: 1,
-          retries: 0,
-          lastStatus: 'ok',
-          lastError: null,
-          firstAt: '2026-10-29T01:00:00+01:00',
-          lastAt: '2026-10-29T01:00:00+01:00',
-        },
-      ],
-      badLines: 0,
-    });
+    expect(await response.json()).toEqual([
+      {
+        job: 'worker',
+        owner: 'rook',
+        runs: 1,
+        retries: 0,
+        lastStatus: 'ok',
+        lastError: null,
+        firstAt: '2026-10-29T01:00:00+01:00',
+        lastAt: '2026-10-29T01:00:00+01:00',
+      },
+    ]);
   });
 
   it('returns 404 for a missing night page', async () => {
@@ -97,7 +94,7 @@ describe('digest routes', () => {
     const response = await makeApp(runsDir).request('/api/digest/2026-10-29');
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({ rows: [], badLines: 0 });
+    expect(await response.json()).toEqual([]);
   });
 
   it('renders valid rows when a night contains a malformed line', async () => {
@@ -129,20 +126,17 @@ describe('digest routes', () => {
     const response = await makeApp(runsDir).request('/api/digest/2026-10-29');
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({
-      rows: [
-        {
-          job: 'worker',
-          owner: null,
-          runs: 1,
-          retries: 0,
-          lastStatus: 'ok',
-          lastError: null,
-          firstAt: '2026-10-29T01:00:00+01:00',
-          lastAt: '2026-10-29T01:00:00+01:00',
-        },
-      ],
-      badLines: 1,
-    });
+    expect(await response.json()).toEqual([
+      {
+        job: 'worker',
+        owner: null,
+        runs: 1,
+        retries: 0,
+        lastStatus: 'ok',
+        lastError: null,
+        firstAt: '2026-10-29T01:00:00+01:00',
+        lastAt: '2026-10-29T01:00:00+01:00',
+      },
+    ]);
   });
 });
