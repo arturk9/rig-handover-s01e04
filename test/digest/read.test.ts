@@ -54,6 +54,7 @@ describe('readNight', () => {
         },
       ],
       badLines: 0,
+      counts: { ok: 1, retry: 1, fail: 1 },
     });
   });
 
@@ -72,6 +73,7 @@ describe('readNight', () => {
     expect(digest.badLines).toBe(2);
     expect(digest.rows).toHaveLength(1);
     expect(digest.rows[0]?.owner).toBeNull();
+    expect(digest.counts).toEqual({ ok: 1, retry: 0, fail: 0 });
   });
 
   it('reads the sample night with five jobs and one malformed line', () => {
@@ -85,6 +87,7 @@ describe('readNight', () => {
       'rig/rotate-logs',
     ]);
     expect(digest.badLines).toBe(1);
+    expect(digest.counts).toEqual({ ok: 10, retry: 4, fail: 1 });
     expect(digest.rows.find((row) => row.job === 'digest/render')?.owner).toBeNull();
   });
 });
