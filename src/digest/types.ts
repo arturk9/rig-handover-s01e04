@@ -12,6 +12,11 @@ export type DigestRow = {
 export type NightDigest = {
   rows: DigestRow[];
   badLines: number;
+  counts: {
+    ok: number;
+    retry: number;
+    fail: number;
+  };
 };
 
 export declare function readNight(runsDir: string, night: string): NightDigest;

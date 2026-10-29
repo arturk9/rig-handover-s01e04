@@ -28,6 +28,7 @@ export function readNight(runsDir: string, night: string): NightDigest {
 
   const rowsByJob = new Map<string, DigestRow>();
   let badLines = 0;
+  const counts = { ok: 0, retry: 0, fail: 0 };
 
   const lines = contents === '' ? [] : contents.split(/\r?\n/);
   if (contents.endsWith('\n')) lines.pop();
@@ -45,6 +46,8 @@ export function readNight(runsDir: string, night: string): NightDigest {
       badLines += 1;
       continue;
     }
+
+    counts[parsed.status] += 1;
 
     const previous = rowsByJob.get(parsed.job);
     if (previous === undefined) {
@@ -69,5 +72,5 @@ export function readNight(runsDir: string, night: string): NightDigest {
     previous.owner = parsed.owner;
   }
 
-  return { rows: [...rowsByJob.values()], badLines };
+  return { rows: [...rowsByJob.values()], badLines, counts };
 }
